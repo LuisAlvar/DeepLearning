@@ -8,22 +8,23 @@ static void ErrorHandler(cudaError_t err, const char* file, int line)
   if (err != cudaSuccess)
   {
     printf("file(%s) at line %d: %s", file, line, cudaGetErrorString(err));
-    exit(EXIST_FAILURE);
+    exit(EXIT_FAILURE);
   }
 }
 #define ERROR_HANDLER( err ) (ErrorHandler(err, __FILE__, __LINE__))
-
 #define N_INPUT 3
 
-__global__ void DotProduct(int*a, int*b, int*c)
+__global__ void DotProduct(double*a, double*b, double*c)
 {
-  int id = blockId.x;
+  int id = blockIdx.x;
   if (id < N_INPUT)
   {
     c[id] = a[id] * b[id];
   }
 }
 
+// Not the best utilization of having the GPU perform a dot product of this size.
+// This is just to implement the perceptron function in CUDA C
 int main(void)
 {
   double* weight_vector;
@@ -52,31 +53,33 @@ int main(void)
 
   // allocate the memory on the GPU
   ERROR_HANDLER(cudaMalloc((void**)&dev_w, N_INPUT*sizeof(double)));
-  ERROR_HANDLER(cudaMalloc((void**)&dev_w, N_INPUT*sizeof(double)));
+  ERROR_HANDLER(cudaMalloc((void**)&dev_x, N_INPUT*sizeof(double)));
   ERROR_HANDLER(cudaMalloc((void**)&dev_result, N_INPUT*sizeof(double)));
 
   // copy data from CPU to GPU
-  ERROR_HANDLER(cudaMemcpy(dev_w, weight_vector, N * sizeof(double), cudaMemcpyHostToDevice));
-  ERROR_HANDLER(cudaMemcpy(dev_x, input_vector, N * sizeof(double), cudaMemcpyHostToDevice));
+  ERROR_HANDLER(cudaMemcpy(dev_w, weight_vector, N_INPUT * sizeof(double), cudaMemcpyHostToDevice));
+  ERROR_HANDLER(cudaMemcpy(dev_x, input_vector, N_INPUT * sizeof(double), cudaMemcpyHostToDevice));
 
   DotProduct<<<N_INPUT,1>>>(dev_w, dev_x, dev_result);
 
-  ERROR_HANDLER(cudaMemcpy(result_vector, dev_result, N * sizeof(double), cudaMemcpyDeviceToHost));
+  ERROR_HANDLER(cudaMemcpy(result_vector, dev_result, N_INPUT * sizeof(double), cudaMemcpyDeviceToHost));
 
   double z = 0.0;
 
   for (int i = 0; i < N_INPUT; i++)
   {
+    printf("%.2f| ", result_vector[i]);
     z += result_vector[i];
   }
+  printf("z: %.2f\n", z);
 
   if (z < 0)
   {
-    printf("%d", -1);
+    printf("%d\n", -1);
   }
   else 
   {
-    printf("%d", 1);
+    printf("%d\n", 1);
   }
   
   return 0;
