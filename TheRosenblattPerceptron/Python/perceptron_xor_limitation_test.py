@@ -2,7 +2,7 @@
 # Purpose: 
 #
 # Run:
-#     python3 basic_detail_perceptron_implementation.py
+#     python3 perceptron_xor_limitation_test.py
 # -----------------------------------------------------------------------------------------
 import random 
 import matplotlib.pyplot as plt
@@ -49,8 +49,8 @@ def save_learning(w):
 def show_learning():
     global color_index
     curr_index = 1
-    plt.plot([1.0],[1.0],'b_',markersize=12)
-    plt.plot([-1.0,1.0,-1.0],[1.0,-1.0,-1.0], 'r+', markersize=12)
+    plt.plot([1.0,-1.0],[1.0,-1.0],'b_',markersize=12)
+    plt.plot([-1.0,1.0],[1.0,-1.0], 'r+', markersize=12)
     plt.axis([-2,2,-2,2])
     plt.xlabel('x1')
     plt.ylabel('x2')
@@ -75,13 +75,14 @@ x_train = [
     (1.0,1.0,-1.0),
     (1.0,1.0,1.0)
 ] # Inputs
-y_train = [1.0,1.0,1.0,-1.0] # Output (ground truth)
+y_train = [-1.0,1.0,1.0,-1.0] # Output (ground truth)
 
 # Define perceptron weights. 
 w = [0.2, -0.6, 0.25] # Initialize to some "random" numbers
 
 # Print initial weights
 save_learning(w)
+max_weight_adjustment = 5
 
 # Perceptron training loop.
 all_correct = False
@@ -97,6 +98,9 @@ while not all_correct:
                 w[j] += (y * LEARNING_RATE * x[j])
             all_correct = False
             save_learning(w) # Show updated weights
+            max_weight_adjustment -= 1
+    if max_weight_adjustment == 0:
+        all_correct = True
 
 # show plotted graph
 show_learning()

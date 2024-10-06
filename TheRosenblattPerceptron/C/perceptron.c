@@ -1,3 +1,30 @@
+/***************************************************************
+ * perceptron - implementaion of a two-input perceptron
+ * 
+ * Usage
+ *      perceptron
+ * 
+ * Note:
+ *  Within this c program file, we carefully set the weight vector 
+ *  to [0.9,-0.6,-0.5], with the expectation that it will yield to
+ *  NAND gate behavior - given any possible commbination of 2 inputs:
+ *  either -1(false) and 1(true).
+ * 
+ *  NAND gate
+ *  x1 | x2 | output
+ *  ---|----|-------|
+ *  -1 | -1 |   1
+ *  1  | -1 |   1
+ *  -1 | 1  |   1
+ *  1  | 1  |   -1
+ * 
+ * Compile:
+ * >> make
+ * 
+ * Run:
+ * >> ./bin/perceptron
+ * 
+ ***************************************************************/
 #include <stdio.h>
 
 #define N_INPUT_PERCEPTRON 2
