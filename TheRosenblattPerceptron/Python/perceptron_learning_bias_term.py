@@ -1,8 +1,10 @@
 # -----------------------------------------------------------------------------------------
 # Purpose: 
-# 
+#   We remove the bias terms w_0 and x_0 within the weight vector and input vector.
+#   By removing it we understand that the bias terms acts as an adjustment threshold because we compute it within the summation
+#   Whereas, having a explicit fixed threshold. We substract it from the summation at the end.  
 # Run:
-#     python3 perceptron_learning_in_detail.py
+#     python3 perceptron_learning_bias_term.py
 # -----------------------------------------------------------------------------------------
 import random 
 import matplotlib.pyplot as plt
@@ -31,7 +33,7 @@ def compute_output(w,x):
 # Code Snippet 1-5 Extended Version Of Initialization Code with Function to Plot the Output
 def save_learning(w):
     global weight_iteration
-    print('w0 =','%5.2f' % theta, ', w1 =', '%5.2f' % w[0], ', w2 =', '%5.2f' % w[1])
+    print('theta =','%5.2f' % theta, ', w1 =', '%5.2f' % w[0], ', w2 =', '%5.2f' % w[1])
     x = [-2.0, 2.0]
     if abs(w[1]) < ONE_TO_NEG_N_POWER:
         y = [
