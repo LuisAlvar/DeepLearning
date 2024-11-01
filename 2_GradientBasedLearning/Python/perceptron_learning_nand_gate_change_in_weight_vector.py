@@ -56,7 +56,7 @@ def update(frame):
     ax.set_ylabel('$x_2$')
     ax.set_zlabel('$z$')
     ax.set_zlim(-1.5,1.5)
-    ax.set_title('Change in Weight Vector To Final Weight Vector')
+    ax.set_title('Change in Final Weight Vector For NAND Gate')
 
 def show_learning():
     global fig
