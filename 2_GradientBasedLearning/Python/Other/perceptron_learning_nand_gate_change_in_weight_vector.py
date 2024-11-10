@@ -1,6 +1,8 @@
 # -----------------------------------------------------------------------------------------
 # Purpose: 
-#
+# The same perceptron learning exercise for the NAND gate behavior. 
+# Expect, we show now the weight surface changes to its final form. We graph f(x1. x2)
+# as we change the weight constants. 
 # Run:
 #     python3 perceptron_learning_in_detail.py
 # -----------------------------------------------------------------------------------------

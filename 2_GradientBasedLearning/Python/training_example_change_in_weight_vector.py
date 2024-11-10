@@ -1,3 +1,20 @@
+#---------------------------------------------------------------------------------
+# Purpose: 
+# When having x1 and x2 as input variables to a f(x1,x2).
+# We can observe how manually changing the weight vector changings the 3d plane.
+# This reminds me of linear algebar, be in 3D, where you may have a:
+# reflection, slide, growth, or a shrink against a set of 4 points connected together. 
+# However, in this case, the w_0 causes the 3d plane to move up and down - independently. 
+# 
+# A change in w_1, will cause the center of the surface to tilt parallel 
+# to x2. Image the x2 axis in the center of the surface, as it acts a seesaw, 
+# where the surface can tilt back and front. 
+# 
+# Whereas, a change in w_2, will cause the center of the surface to tilt parallel 
+# to x1. Image the x1 axis in the center of the sure, as it acts a seesaw, 
+# where the surface can tilt back and front.
+#
+#---------------------------------------------------------------------------------
 # pip install ipywidgets
 import matplotlib.pyplot as plt
 import numpy as np
