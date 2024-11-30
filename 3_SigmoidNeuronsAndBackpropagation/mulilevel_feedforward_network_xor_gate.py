@@ -55,3 +55,20 @@ y_train = [0.0,1.0,1.0,0.0] # Output (ground truth)
 n_w = [neuron_w(2), neuron_w(2), neuron_w(2)]
 n_y = [0, 0, 0]
 n_error = [0, 0, 0]
+
+# Network training loop
+all_correct = False
+while not all_correct: # Train until converged
+  all_correct = True
+  np.random.shuffle(index_list) # Randomize order
+  for i in index_list: # Train on all examples
+    forward_pass(x_train[i])
+    backward_pass(y_train[i])
+    adjust_weights(x_train[i])
+    show_learning() # show updated weights
+  for i in range(len(x_train)): # Check if converged
+    forward_pass(x_train[i])
+    print('x1 =', '%4.1f' % x_train[i][1], ', x2 =', '%4.1f' % x_train[i][2], ', y =', '%.4f' % n_y[2])
+    if (((y_train[i] < 0.5) and (n_y[2] >= 0.5)) or ((y_train[i] >= 0.5) and (n_y[2] < 0.5))):
+      all_correct = False
+
